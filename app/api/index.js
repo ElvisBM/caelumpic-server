@@ -49,7 +49,7 @@ api.adicionaReoder = function(req, res) {
     
     //Delete Itens DB
     fotos.forEach(foto => {
-        db.remove({ _id: foto._id }, {}, function (err, numRemoved) {
+        db.remove({ _id: foto['_id'] }, {}, function (err, numRemoved) {
             if (err) return console.log(err);
             console.log('removido com sucesso');
             if(numRemoved) res.status(200).end();
@@ -59,6 +59,7 @@ api.adicionaReoder = function(req, res) {
     
     //Add Itens in new order
     fotos.forEach(foto => {
+        delete foto._id;
         db.insert(foto, function(err, newDoc) {
             if(err) return console.log(err);
             console.log('Adicionado com sucesso: ' + newDoc._id);
